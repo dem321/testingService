@@ -1,3 +1,13 @@
 {% extends 'main/main_template.html' %}
 
 {% block title %}Регистрация{% endblock %}
+{% load bootstrap4 %}
+
+{% block content %}
+    <form method="post" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-success">Зарегистрироваться</button>
+    </form>
+    <span>Если у вас есть аккаунт => <a href="{% url 'login' %}">Авторизуйтесь</a></span>
+{% endblock %}

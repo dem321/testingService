@@ -3,28 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %}</title>
-    {% load bootstrap5 %}
+    {% load bootstrap4 %}
     {% bootstrap_css %}
-    {% bootstrap_javascript %}
+    {% bootstrap_javascript jquery='full' %}
+    {% bootstrap_messages %}
+    {% block head %}{% endblock %}
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-      <a class="navbar-brand" href="/">TESTDOTCOM</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">TESTDOTCOM</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#navbarText"
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="">Profile</a>
-          </li>
-        </ul>
-      </div>
-      <div>
-          <a class="btn-outline-secondary btn" href="">
-              Profile
-          </a>
-      </div>
-    </nav>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        {% if user.is_staff %}
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="admin/">Admin</a>
+                </li>
+            </ul>
+        {% endif %}
+    </div>
+
+    <div>
+        {% if  user.is_authenticated %}
+            <a class="btn-outline-secondary btn" href="">
+                Профиль
+            </a>
+            <a class="btn-outline-secondary btn" href="{% url 'logout' %}">
+                Logout
+            </a>
+        {% else %}
+            <a class="btn-outline-secondary btn" href="{% url 'login' %}">
+                Авторизоваться
+            </a>
+        {% endif %}
+    </div>
+</nav>
+<div class="m-3">
+    {% block content %}
+    {% endblock %}
+</div>
 </body>
 </html>
