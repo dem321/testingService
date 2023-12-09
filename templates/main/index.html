@@ -1,2 +1,8 @@
 {% extends 'main/main_template.html' %}
 {% block head %}{% load bootstrap4 %}{% endblock %}
+{% load tags %}
+{% block content %}
+	{% for test in tests %}
+		{% test_thumbnail test.id %}
+	{% endfor %}
+{% endblock %}

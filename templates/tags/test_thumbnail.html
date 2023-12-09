@@ -1,0 +1,5 @@
+{% load bootstrap4 %}
+<div class="col-md-2 border d-flex align-items-center flex-column border-dark rounded justify-content-between m-3">
+    <h1 class="text-center">{{ test.name }}</h1>
+    <a class="btn-outline-primary btn" href="{% url 'test_description' test.id %}">Выполнить</a>
+</div>

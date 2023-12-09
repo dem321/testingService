@@ -1,0 +1,14 @@
+{% extends 'main/main_template.html' %}
+{% load bootstrap4 %}
+{% block content %}
+	<div>
+        <h1>{{ test.name }}</h1>
+        <p>{{ question.description }}</p>
+        <form method="post">
+            {% csrf_token %}
+            {% bootstrap_form form%}
+            {% bootstrap_button 'Сохранить' button_type='submit' button_class='btn-success'%}
+        </form>
+
+    </div>
+{% endblock %}

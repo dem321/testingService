@@ -1,0 +1,24 @@
+{% extends 'main/main_template.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+    <table class="table-bordered table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Question</th>
+        <th scope="col">Answer</th>
+    </tr>
+    </thead>
+    {% for question, answer in result.items %}
+        <tr class="table-info">
+            <th>{{ question }}</th>
+            <th>{{ answer }}</th>
+        </tr>
+    {% endfor %}
+    </table>
+    <br/>
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_button 'Закончить' button_type='submit' button_class='btn-outline-primary' name='Finish'%}
+    </form>
+{% endblock %}

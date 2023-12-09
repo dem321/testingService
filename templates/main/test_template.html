@@ -1,0 +1,8 @@
+{% extends 'main/main_template.html' %}
+{% block content %}
+	<div>
+        <h1>{{ test.name }}</h1>
+        <p>{{ test.description }}</p>
+        <a class="btn-danger btn" href="{% url 'question' test.id 1 %}">Приступить к выполнению</a>
+    </div>
+{% endblock %}
