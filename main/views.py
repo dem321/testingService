@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.db import transaction
+from django.contrib.auth.decorators import login_required
 from .forms import RegistrationForm, AuthForm, QuestionForm
 from .models import Test, Question, Answer, UserTest, UserAnswer
 
@@ -48,6 +49,7 @@ def test_view(request, test_id):
     return render(request, 'main/test_template.html', {'test': get_object_or_404(Test, id=test_id)})
 
 
+@login_required
 def question_view(request, test_id, question_order):
     all_questions = Question.objects.filter(test=test_id).order_by('order')
     if all_questions.last().order < question_order:
@@ -63,6 +65,7 @@ def question_view(request, test_id, question_order):
     return render(request, 'main/question_template.html', {'question': question_obj, 'test':test_obj, 'form':form})
 
 
+@login_required
 def summary(request, test_id):
     all_questions = Question.objects.filter(test=test_id)
     if 'Finish' in request.POST:
@@ -80,9 +83,18 @@ def summary(request, test_id):
                         test.score = question.weight
                 test.save()
                 del request.session[str(el.id)]
-            return redirect('idx')
+        return redirect('idx')
     result = {}
     session = request.session
     for el in all_questions:
         result[el.id] = get_object_or_404(Answer, id=request.session[str(el.id)]).description
     return render(request, 'main/summary.html', {'result': result})
+
+
+@login_required
+def profile(request):
+    tests = UserTest.objects.filter(user=request.user)
+    data = {}
+    for test in tests:
+        data[test] = UserAnswer.objects.filter(user_test=test)
+    return render(request, 'main/profile.html', {'data': data})

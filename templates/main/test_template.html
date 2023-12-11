@@ -3,6 +3,10 @@
 	<div>
         <h1>{{ test.name }}</h1>
         <p>{{ test.description }}</p>
-        <a class="btn-danger btn" href="{% url 'question' test.id 1 %}">Приступить к выполнению</a>
+        {% if user.is_authenticated %}
+            <a class="btn-danger btn" href="{% url 'question' test.id 1 %}">Приступить к выполнению</a>
+        {% else %}
+            <p>Для прохождения теста необходимо авторизоваться</p>
+        {% endif %}
     </div>
 {% endblock %}

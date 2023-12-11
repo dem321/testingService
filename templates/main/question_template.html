@@ -9,6 +9,8 @@
             {% bootstrap_form form%}
             {% bootstrap_button 'Сохранить' button_type='submit' button_class='btn-success'%}
         </form>
-
+        {% if question.order != 1 %}
+            <a class="btn btn-warning" href="/test/{{ test.id }}/{{ question.order|add:'-1' }}">Назад</a>
+        {% endif %}
     </div>
 {% endblock %}

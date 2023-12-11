@@ -1,0 +1,23 @@
+{% extends 'main/main_template.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+    {% for test, questions in data.items %}
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">{{ test.test.name }}</th>
+                    <th scope="col">{{ test.score }}</th>
+                </tr>
+            </thead>
+            {% for question in questions%}
+                <tbody>
+                    <tr>
+                        <td>{{ question.question.description }}</td>
+                        <td>{{ question.answer.description }}</td>
+                    </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+    {% endfor %}
+{% endblock %}

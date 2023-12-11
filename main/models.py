@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class Test(models.Model):
-    description = models.CharField('Оаисание теста', max_length=300)
+    description = models.CharField('Описание теста', max_length=300)
     name = models.CharField('Название теста', max_length=30)
 
     def __str__(self):
